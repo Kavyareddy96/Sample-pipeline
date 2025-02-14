@@ -1,25 +1,35 @@
-pipeline {
-    agent { label 'Agent_Mvn_01' }
-    stages {
-	    stage('Parallel Execution') {
-		   parallel {
-		    stage('Clean up') {
-			   steps {
-			      cleanWs()
-				 }
-			}
-        stage('Clone') {
-            steps {
-                sh 'git clone https://github.com/Kavyareddy96/Sample-pipeline.git'
-				
-            }
-        }
-        stage('Build') {
-            steps {
-                sh 'mvn clean install'
-			
-            }
-        }
-       
+pipeline { 
+ agent any 
+ stages { 
+ stage('Clean Up') { 
+ steps { 
+ cleanWs() 
+ } 
+ } 
+ stage('Parallel Execution') { 
+ parallel { 
+ stage('Clone') { 
+ steps { 
+ sh 'git clone https://github.com/Kavyareddy96/java-war-repo.git' 
+ } 
+ } 
+ stage('Build') { 
+ steps { 
+ dir('java-war-repo') { 
+ sh 'mvn clean install -DskipTests' 
+ } 
+ } 
+ } 
+} 
+} 
+ stage('Test') { 
+ steps {
+ dir('java-war-repo') {
+ sh 'mvn test'
+ }
+ }
+ }
+ }
+ }
     }
 }
