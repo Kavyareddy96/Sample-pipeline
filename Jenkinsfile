@@ -10,7 +10,7 @@ pipeline {
 			}
         stage('Clone') {
             steps {
-                sh 'git clone https://github.com/Kavyareddy96/java-war-repo.git'
+                sh 'git clone https://github.com/Kavyareddy96/Sample-pipeline.git'
 				
             }
         }
