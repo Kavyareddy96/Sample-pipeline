@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label 'Agent_Mvn_01' }
     stages {
 	    stage('Parallel Execution') {
 		   parallel {
